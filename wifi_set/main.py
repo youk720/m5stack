@@ -8,7 +8,7 @@ import urequests
 wifi = network.WLAN(network.STA_IF)
 wifi.active(True)
 # SSID & PassWord入力
-wifi.connect("ssid", "pass")
+wifi.connect("nstudents", "nnnedjpwireless")
 
 # While文で接続待ちをする
 while not wifi.isconnected():
