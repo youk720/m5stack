@@ -1,21 +1,19 @@
-# 各種ライブラリ導入
 from m5stack import lcd
-import time
 import network
-import urequests
+import socket
+import time
 
-# Wi-Fi系各種定義
-wifi = network.WLAN(network.STA_IF)
-wifi.active(True)
-# SSID & PassWord入力
-wifi.connect("nstudents", "nnnedjpwireless")
+ap_if = network.WLAN(network.AP_IF)
+ap_if.config(essid="m5stack")
+ap_if.config(password='12345678')
+ap_if.active(True)
+lcd.println(str(ap_if.ifconfig()))
 
-# While文で接続待ちをする
-while not wifi.isconnected():
-    lcd.print(".")
-    time.sleep(0.1)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', 80))
+s.listen(5)
 
-# Getしたデータを画面に表示する
-response = urequests.get('http://jsonplaceholder.typicode.com/albums/1')
-lcd.print("\n")
-lcd.println(response.text)
+while True:
+    conn, addr = s.accept()
+    conn.send("<h1>test!!</h1>")
+    conn.close()
