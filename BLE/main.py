@@ -1,4 +1,4 @@
-from network import Bluetooth
+from network import Bluetooth # そもそもライブラリ無い説
 from m5stack import lcd
 lcd.println("start")
 
